@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+ 		Trang chủ - Xuân Thành Phát 
+	</title>
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v17.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Trang chủ - Xuân Thành Phát</title>
+	<meta name="description" content="Quầy thuốc thông minh." />
+	<link rel="canonical" href="https://xuanthanhphat.vn/" />
+	<meta property="og:locale" content="vi_VN" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Trang chủ - Xuân Thành Phát" />
+	<meta property="og:description" content="Quầy thuốc thông minh." />
+	<meta property="og:url" content="https://xuanthanhphat.vn/" />
+	<meta property="og:site_name" content="Xuân Thành Phát" />
+	<meta property="article:modified_time" content="2022-01-19T03:55:04+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{
+	    "@context": "https://schema.org",
+	    "@graph": [
+	        {
+	            "@type": "WebSite",
+	            "@id": "https://xuanthanhphat.vn/#website",
+	            "url": "https://xuanthanhphat.vn/",
+	            "name": "Xu\u00e2n Th\u00e0nh Ph\u00e1t",
+	            "description": "M\u1ed9t trang web m\u1edbi s\u1eed d\u1ee5ng WordPress",
+	            "potentialAction": [
+	                {
+	                    "@type": "SearchAction",
+	                    "target": {
+	                        "@type": "EntryPoint",
+	                        "urlTemplate": "https://xuanthanhphat.vn/?s={search_term_string}"
+	                    },
+	                    "query-input": "required name=search_term_string"
+	                }
+	            ],
+	            "inLanguage": "vi"
+	        },
+	        {
+	            "@type": "WebPage",
+	            "@id": "https://xuanthanhphat.vn/#webpage",
+	            "url": "https://xuanthanhphat.vn/",
+	            "name": "Trang ch\u1ee7 - Xu\u00e2n Th\u00e0nh Ph\u00e1t",
+	            "isPartOf": {
+	                "@id": "https://xuanthanhphat.vn/#website"
+	            },
+	            "datePublished": "2021-08-31T15:31:16+00:00",
+	            "dateModified": "2022-01-19T03:55:04+00:00",
+	            "description": "Qu\u1ea7y thu\u1ed1c th\u00f4ng minh.",
+	            "breadcrumb": {
+	                "@id": "https://xuanthanhphat.vn/#breadcrumb"
+	            },
+	            "inLanguage": "vi",
+	            "potentialAction": [
+	                {
+	                    "@type": "ReadAction",
+	                    "target": [
+	                        "https://xuanthanhphat.vn/"
+	                    ]
+	                }
+	            ]
+	        },
+	        {
+	            "@type": "BreadcrumbList",
+	            "@id": "https://xuanthanhphat.vn/#breadcrumb",
+	            "itemListElement": [
+	                {
+	                    "@type": "ListItem",
+	                    "position": 1,
+	                    "name": "Trang ch\u1ee7"
+	                }
+	            ]
+	        }
+	    ]
+	}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Dòng thông tin Xuân Thành Phát &raquo;" href="" />
+<link rel="alternate" type="application/rss+xml" title="Dòng phản hồi Xuân Thành Phát &raquo;" href="" />
+<style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<style id='rocket-lazyload-inline-css'>
+.rll-youtube-player{position:relative;padding-bottom:56.23%;height:0;overflow:hidden;max-width:100%;}.rll-youtube-player iframe{position:absolute;top:0;left:0;width:100%;height:100%;z-index:100;background:0 0}.rll-youtube-player img{bottom:0;display:block;left:0;margin:auto;max-width:100%;width:100%;position:absolute;right:0;top:0;border:none;height:auto;cursor:pointer;-webkit-transition:.4s all;-moz-transition:.4s all;transition:.4s all}.rll-youtube-player img:hover{-webkit-filter:brightness(75%)}.rll-youtube-player .play{height:72px;width:72px;left:50%;top:50%;margin-left:-36px;margin-top:-36px;position:absolute;background:url(localhost:xuanthanhphat/wp-content/plugins/wp-rocket/assets/img/youtube.png) no-repeat;cursor:pointer}
+</style>
+<link rel="https://api.w.org/" href="" /><link rel="alternate" type="application/json" href="" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="localhost:xuanthanhphat/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8.3" />
+<link rel='shortlink' href='' />
+<style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>    <!-- css -->
+    <link rel="icon" href="localhost:xuanthanhphat/wp-content/uploads/2021/10/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/vendor/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link data-minify="1" rel="stylesheet" href="localhost:xuanthanhphat/wp-content/cache/min/1/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css?ver=1635242232"/>
+    <link rel="stylesheet" type="text/css" href="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/vendor/owlcarousel/assets/owl.theme.default.min.css">
+    <link data-minify="1" rel="stylesheet" type="text/css" href="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/vendor/fontawesome-free-5.15.3-web/css/all.min.css?ver=1634615142">
+    <link rel="stylesheet" type="text/css" href="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/vendor/owlcarousel/assets/owl.carousel.min.css">
+    <!-- custom css -->
+    <link data-minify="1" rel="stylesheet" href="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/css/icomoon.min.css?ver=1634615142">
+    <link data-minify="1" rel="stylesheet" href="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/css/animate.css?ver=1634615142">
+    <link data-minify="1" rel="stylesheet" href="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/css/main.css?ver=1634615142">
+    <link data-minify="1" rel="stylesheet" href="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/css/responsive.css?ver=1634615142">
+</head>
+
+<body>
+    <!-- Top header -->
+    <header>
+        <div class="container">
+            <div class="nav-top">
+                <div class="nav-contact">
+                    <p><span><i class="icomoon icomoon-icon-phone"></i> Liên hệ: </span><span><a href="tel:0988.176.899">0988.176.899</a></span></p>
+                    <p><span><i class="icomoon icomoon-icon-envelope"></i> Email: </span><span><a href="mailto:xuanthanhphatvn@gmail.com" style="color:#666; padding-left: 1em;">xuanthanhphatvn@gmail.com</a></span></p>
+                </div>
+                <div class="nav-language">
+                    <div class="nav-language-child">
+                        <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/vi.png"><noscript><img src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/vi.png" alt=""></noscript></a>
+                    </div>
+                    <div class="nav-language-child">
+                        <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/en.png"><noscript><img src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/en.png" alt=""></noscript></a>
+                    </div>
+                    <div class="nav-language-child">
+                        <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/jp.png"><noscript><img src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/jp.png" alt=""></noscript></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+	
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="menu">
+        <div class="container">
+            <a class="navbar-brand" href="localhost:xuanthanhphat"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/logo.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/logo.png"></noscript></a>
+            <button class="navbar-toggler" type="button" onclick="openNav()">
+                <i class="icomoon icomoon-icon-menu2"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end order-2 order-lg-1">
+				<ul id="header-main" class="navbar-nav navbar-nav-pc"><li id="menu-item-11" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11"><a href="http://xuanthanhphat.vn/">Trang chủ</a></li>
+<li id="menu-item-31" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><a href="">Về chúng tôi</a></li>
+<li id="menu-item-246" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-246"><a href="">Dịch vụ</a>
+<ul class="sub-menu">
+	<li id="menu-item-1158" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1158"><a href="">Thiết kế mobile app</a></li>
+	<li id="menu-item-547" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-547"><a href="">Phần mềm quản lý bệnh viện thông minh</a></li>
+	<li id="menu-item-546" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-546"><a href="">Phần mềm quản lý máy lâm sàng</a></li>
+	<li id="menu-item-758" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-758"><a href="">Phần mềm quản lý trường học thông minh</a></li>
+	<li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28"><a href="">Hạ tầng mạng</a></li>
+	<li id="menu-item-245" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-245"><a href="">An ninh mạng</a></li>
+</ul>
+</li>
+<li id="menu-item-362" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-362"><a href="#">Thực tập sinh IT</a>
+<ul class="sub-menu">
+	<li id="menu-item-1521" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1521"><a href="">Đăng ký thực tập sinh</a></li>
+	<li id="menu-item-417" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-417"><a href="https://www.facebook.com/groups/1127125274754128">Group Facebook XTP</a></li>
+</ul>
+</li>
+<li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="">Đăng ký dịch vụ</a></li>
+<li id="menu-item-783" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-783"><a href="">Blogs</a></li>
+</ul>            </div>
+            <div class="navbar-search  order-1 order-lg-2">
+                <a class=" icon-search" href="javascript:void(0)"><i class="icomoon icomoon-icon-search"></i></a>
+            </div>
+            <form class="form-search" action="localhost:xuanthanhphat/" method="GET" role="form">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input type="text" name="s" class="form-control" placeholder="Nhập từ khóa tìm kiếm">
+                    <div class="input-group-append">              
+                        <button type="submit" class="btn btn-primary">Search </button>
+                    </div>
+                </div>
+                <a class="icon-hide" href="javascript:void(0)"><i class="fas fa-times"></i></a>
+            </form>
+
+        </div>
+        <div id="myCanvasNav" class="overlay3" onclick="closeOffcanvas()"></div>
+        <div class="sidenav" id="mySidenav">
+            <div class="sidenav-title">
+                <h4>Menu</h4>
+                <i class="icomoon icomoon-icon-menu2" onclick="closeOffcanvas();"></i>
+            </div>
+            <ul id="header-main" class="navbar-nav navbar-nav-mobile"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11"><a href="http://xuanthanhphat.vn/">Trang chủ</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><a href="">Về chúng tôi</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-246"><a href="">Dịch vụ</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1158"><a href="">Thiết kế mobile app</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-547"><a href="">Phần mềm quản lý bệnh viện thông minh</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-546"><a href="">Phần mềm quản lý máy lâm sàng</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-758"><a href="">Phần mềm quản lý trường học thông minh</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28"><a href="">Hạ tầng mạng</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-245"><a href="">An ninh mạng</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-362"><a href="#">Thực tập sinh IT</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1521"><a href="">Đăng ký thực tập sinh</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-417"><a href="https://www.facebook.com/groups/1127125274754128">Group Facebook XTP</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="">Đăng ký dịch vụ</a></li>
+<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-783"><a href="">Blogs</a></li>
+</ul>        </div>
+    </nav>
+    
+    <!-- Navbar -->
+    <!-- Slide -->  
+    <section id="banner">
+        <div class="owl-carousel owl-theme owl-banner" data-autoPlay="true">
+            <div class="item">
+                <video width="100%" autoplay loop muted playsinline >
+                    <source src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/banner1.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="item">
+                <video width="100%" autoplay loop muted playsinline >
+                    <source src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/banner2.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="item">
+                <video width="100%" autoplay loop muted playsinline >
+                    <source src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/banner3.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
+    <!-- interactive -->
+    <section id="interactive">
+        <div class="container">
+            <div class="row">
+												
+						<div class="col-sm-6 col-md-4">
+							<div class="interactive-child">
+								<div class="interactive-child-icon "><i class="icomoon icomoon-icon-display icon-3"></i></div>
+								<h3>TIẾN ĐỘ</h3>
+								<p>Uy tín là yếu tố quan trọng chúng tôi luôn hướng tới, đảm bảo tiến độ là mục tiêu chiến lược trong quá trình hoạt động của công ty.</p>
+							</div>
+						</div>
+								
+						<div class="col-sm-6 col-md-4">
+							<div class="interactive-child">
+								<div class="interactive-child-icon active"><i class="icomoon icomoon-icon-photo icon-3"></i></div>
+								<h3>CHẤT LƯỢNG</h3>
+								<p>Xuân Thành Phát không ngừng tìm tòi, phát triển cải tiến, nâng cao chất lượng , sản phẩm, đổi mới cung ứng dịch vụ tốt nhất đến khách hàng.</p>
+							</div>
+						</div>
+								
+						<div class="col-sm-6 col-md-4">
+							<div class="interactive-child">
+								<div class="interactive-child-icon "><i class="icomoon icomoon-icon-params icon-3"></i></div>
+								<h3>BẢO HÀNH</h3>
+								<p>Chính sách bảo hành “trọn đời”. Đội ngũ tư vấn chuyên nghiệp luôn sẵn sàng phục vụ, hỗ trợ bạn 24/7, bất kỳ khi nào bạn cần.</p>
+							</div>
+						</div>
+									            </div>
+            <div class="interactive-down text-center">
+                <a href="#procedure"><i class="azoom-down-arrow-icon icomoon icomoon-icon-azoom-arrow-down "></i></a>
+            </div>
+        </div>
+    </section>
+    <!-- Quy trình -->
+    <section id="procedure">
+        <div class="container">
+                                                <h3 class="procedure-title">Quy trình Xuân Thành Phát</h3>
+                    <div class="procedure-line"></div>
+                    <p class="procedure-text"> Tất cả được thực hiện với quy trình tối ưu 5 bước sau:
+
+
+</p>
+                                    </div>
+    </section>
+    <!-- Quy trình slide -->
+    <section id="procedure_slide">
+        <section class="ps-timeline-sec">
+            <div class="container">
+                <ol class="ps-timeline">
+                                                                        <li>
+                                <div class="img-handler-top">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_03.png" /><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_03.png" alt="" /></noscript>                  
+                                </div>
+                                <div class="ps-bot">
+                                    <h4>Phân Tích</h4>
+                                    <p>Gặp khách hàng -> Phân tích tính năng, chức năng
+</p>
+                                </div>
+                                <span class="ps-sp-top">01</span>
+                            </li>
+                                                    <li>
+                                <div class="img-handler-bot">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_13.png" /><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_13.png" alt="" /></noscript>                  
+                                </div>
+                                <div class="ps-top">
+                                    <h4>Sản xuất phần mềm</h4>
+                                    <p>Thiết kế giao diện, tính năng chuyên môn
+</p>
+                                </div>
+                                <span class="ps-sp-bot">02</span>
+                            </li>
+                                                        <li>
+                                <div class="img-handler-top">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_05.png" /><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_05.png" alt="" /></noscript>                  
+                                </div>
+                                <div class="ps-bot">
+                                    <h4>Lập trình chức năng</h4>
+                                    <p>Code giao diện, chức năng bằng công nghệ. Lập trình chức năng tối ưu nhất
+</p>
+                                </div>
+                                <span class="ps-sp-top">03</span>
+                            </li>
+                                                    <li>
+                                <div class="img-handler-bot">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_05.png" /><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_05.png" alt="" /></noscript>                  
+                                </div>
+                                <div class="ps-top">
+                                    <h4>Chạy thử</h4>
+                                    <p>Đội ngũ tester sẽ giả định các trường hợp có thể phát sinh khi triển khai hệ thống
+</p>
+                                </div>
+                                <span class="ps-sp-bot">04</span>
+                            </li>
+                                                        <li>
+                                <div class="img-handler-top">
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_10.png" /><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/ps-elem_10.png" alt="" /></noscript>                  
+                                </div>
+                                <div class="ps-bot">
+                                    <h4>Bàn giao sản phẩm</h4>
+                                    <p>Triển khai sản phẩm trên môi trường thực tế
+</p>
+                                </div>
+                                <span class="ps-sp-top">05</span>
+                            </li>
+                                             
+                </ol>
+            </div>
+        </section>
+    </section>
+    <div id="service">
+                                    <section class="design_block" id="design_block-1">
+                    <div class="container">
+                        <div class="row">       
+                            <div class="col-lg-8 order-lg-1">
+                                <div class="design_mobile_app_img" >
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"  alt="Thiết kế Mobile App" class=" wow fadeInLeft" data-wow-duration="2s" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/xuan-thanh-phat-1.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/xuan-thanh-phat-1.png"  alt="Thiết kế Mobile App" class=" wow fadeInLeft" data-wow-duration="2s"></noscript>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 order-lg-2">
+                                <div class="design_mobile_app-text-details">
+                                    <h2 class="design_mobile_app-title"><strong>01.</strong><br><strong>Thiết kế Mobile App</strong></h2>
+                                    <div class="design_mobile_app-text"><p class="design_mobile_app-text">&#8211; Giao diện chuyên nghiệp, đẹp mắt.</p>
+<p class="design_mobile_app-text">&#8211; Tương tác dễ dàng với người dùng.</p>
+<p class="design_mobile_app-text">&#8211; Hiệu năng tối ưu, không giật lag.</p>
+<p class="design_mobile_app-text">&#8211; Hiển thị tốt trên các thế hệ máy khác nhau.</p>
+<p class="design_mobile_app-text">&#8211; Chức năng theo yêu cầu của khách hàng.</p>
+</div>
+                                </div>
+                                <div class="design_mobile_app-button">
+                                    <a href="https://xuanthanhphat.vn/dich-vu/thiet-ke-mobile-app/" class="escapeat">Xem chi tiết <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                    <a href="" class="escapeat">Nhận Catalogue <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <style>
+                                        #design_block-1 {
+                            background-color: rgba(0, 0, 0, 0.4);
+                            background-image: url(localhost:xuanthanhphat/wp-content/uploads/2021/10/background-theme-scaled-1.jpg);
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                        }
+                         
+                    #design_block-1 .design_mobile_app_img  {
+                        padding-bottom: inherit;
+                        padding-left: inherit;
+                        padding-right: 80px;
+                    }
+                </style>
+                            <section class="design_block" id="design_block-2">
+                    <div class="container">
+                        <div class="row">       
+                            <div class="col-lg-8 order-lg-2">
+                                <div class="design_mobile_app_img" >
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"  alt="Phần mềm quản lý bệnh viện thông minh" class=" wow fadeInRight" data-wow-duration="2s" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/his.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/his.png"  alt="Phần mềm quản lý bệnh viện thông minh" class=" wow fadeInRight" data-wow-duration="2s"></noscript>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 order-lg-1">
+                                <div class="design_mobile_app-text-details">
+                                    <h2 class="design_mobile_app-title"><strong>02.</strong><br><strong>Phần mềm quản lý bệnh viện thông minh</strong></h2>
+                                    <div class="design_mobile_app-text"><h2 style="color: #666; font-weight: bold; font-size: 28px; margin-top: -18px; margin-bottom: 24px;">Tiêu chuẩn HL7: PACS, RIS, DICOM</h2>
+<p class="design_mobile_app-text">&#8211; Tiếp nhận đăng ký khám bệnh online</p>
+<p class="design_mobile_app-text">&#8211; Hệ thống tiếp nhận bệnh nhân lấy số Kiost điện tử thông minh</p>
+<p class="design_mobile_app-text">&#8211; Lập sổ khám, mã định danh, QR điện tử</p>
+<p class="design_mobile_app-text">&#8211; Viện phí, luồng bảo hiểm, tra cứu bệnh nhân</p>
+<p class="design_mobile_app-text">&#8211; Quản lý khám, nội, ngoại trú</p>
+<p class="design_mobile_app-text">&#8211; Quản lý nhân sự thời gian thực</p>
+<p class="design_mobile_app-text">&#8211; Kiểm soát thiết bị y tế, khoa dược, hóa chất</p>
+<p class="design_mobile_app-text">&#8211; Quản lý chỉ định cận lâm sàng, lâm sàng, kết quả</p>
+<p class="design_mobile_app-text">&#8211; Quản lý nội trú, giường bệnh, khoa cấp cứu, phòng mổ</p>
+<p class="design_mobile_app-text">&#8211; Quản lý ngân hàng máu, tương tác thuốc, phác đồ điều trị</p>
+<p class="design_mobile_app-text">&#8211; Kê đơn chỉ định kết quả cận lâm sàng trên máy Smart</p>
+<p class="design_mobile_app-text">&#8211; Quản lý chuyên môn, bệnh án điện tử</p>
+<p class="design_mobile_app-text">&#8211; Chăm sóc, nhắc lịch khám lại bệnh nhân</p>
+<p class="design_mobile_app-text">&#8211; Báo cáo thông kê các lịch sử giao dịch</p>
+<p class="design_mobile_app-text">&#8211; Xây dựng Data dữ liệu,tương tác, quản lý online</p>
+</div>
+                                </div>
+                                <div class="design_mobile_app-button">
+                                    <a href="https://xuanthanhphat.vn/dich-vu/his-hospital-xtp/" class="escapeat">Xem chi tiết <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                    <a href="localhost:xuanthanhphat/wp-content/uploads/2021/11/Small.pdf" class="escapeat">Nhận Catalogue <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <style>
+                                        #design_block-2 .design_mobile_app-text-details {
+                            color: #666;
+                        }
+                         
+                    #design_block-2 .design_mobile_app_img  {
+                        padding-bottom: inherit;
+                        padding-left: 80px;
+                        padding-right: inherit;
+                    }
+                </style>
+                            <section class="design_block" id="design_block-3">
+                    <div class="container">
+                        <div class="row">       
+                            <div class="col-lg-8 order-lg-1">
+                                <div class="design_mobile_app_img" >
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"  alt="Phần mềm quản lý máy lâm sàng" class=" wow fadeInLeft" data-wow-duration="2s" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/lis-hospital.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/lis-hospital.png"  alt="Phần mềm quản lý máy lâm sàng" class=" wow fadeInLeft" data-wow-duration="2s"></noscript>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 order-lg-2">
+                                <div class="design_mobile_app-text-details">
+                                    <h2 class="design_mobile_app-title"><strong>03.</strong><br><strong>Phần mềm quản lý máy lâm sàng</strong></h2>
+                                    <div class="design_mobile_app-text"><h2 style="color: #fff; font-weight: bold; font-size: 28px; margin-top: -18px; margin-bottom: 24px;">Tiêu chuẩn HL7: HL7CDA, DICOM, ICD-10</h2>
+<p class="design_mobile_app-text">&#8211; Quản trị hệ thống, danh mục, chỉ định, kết quả xét nghiệm</p>
+<p class="design_mobile_app-text">&#8211; Quản lý hệ điều hành máy lâm sàng</p>
+<p class="design_mobile_app-text">&#8211; Quản lý tắt mở, công xuất hoạt động cho phép của máy</p>
+<p class="design_mobile_app-text">&#8211; Lấy dữ liệu Lis của máy, định dạng text, hình ảnh, video</p>
+<p class="design_mobile_app-text">&#8211; Kết nối liên thông, đồng bộ His</p>
+<p class="design_mobile_app-text">&#8211; Thiết lập thông số cảnh báo vượt ngưỡng bình thường</p>
+<p class="design_mobile_app-text">&#8211; Báo cáo thống kê Lis đối chiếu đa chiều His</p>
+<p class="design_mobile_app-text">&#8211; Xây dựng Data dữ liệu</p>
+<p class="design_mobile_app-text">&#8211; Bệnh án điện tử</p>
+<p class="design_mobile_app-text">&#8211; Quản lý, phân quyền, giám sát online App, Web</p>
+</div>
+                                </div>
+                                <div class="design_mobile_app-button">
+                                    <a href="https://xuanthanhphat.vn/lis-hospital-xtp" class="escapeat">Xem chi tiết <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                    <a href="localhost:xuanthanhphat/wp-content/uploads/2021/11/Small.pdf" class="escapeat">Nhận Catalogue <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <style>
+                                        #design_block-3 {
+                            background-color: #181f27;
+                        }
+                         
+                    #design_block-3 .design_mobile_app_img  {
+                        padding-bottom: inherit;
+                        padding-left: inherit;
+                        padding-right: 80px;
+                    }
+                </style>
+                            <section class="design_block" id="design_block-4">
+                    <div class="container">
+                        <div class="row">       
+                            <div class="col-lg-8 order-lg-2">
+                                <div class="design_mobile_app_img" >
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"  alt="Phần mềm quản lý trường học thông minh" class=" wow fadeInRight" data-wow-duration="2s" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/Land_Page-1.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/Land_Page-1.png"  alt="Phần mềm quản lý trường học thông minh" class=" wow fadeInRight" data-wow-duration="2s"></noscript>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 order-lg-1">
+                                <div class="design_mobile_app-text-details">
+                                    <h2 class="design_mobile_app-title"><strong>04.</strong><br><strong>Phần mềm quản lý trường học thông minh</strong></h2>
+                                    <div class="design_mobile_app-text"><p>&#8211; Quản lý, tạo mã QR, sinh viên bắt đầu nhập học<br />
+&#8211; Giám sát ra vào của sinh viên<br />
+&#8211; Sinh viên tương tác với thầy cô<br />
+&#8211; Thầy cô tương tác với sinh viên<br />
+&#8211; Quản lý nhắc nhở học, bài tập<br />
+&#8211; Gửi thông báo các thông tin nhà trường<br />
+&#8211; Nhắc nhở học phí và các dịch vụ khác<br />
+&#8211; Quản lý setup phòng học, thi<br />
+&#8211; Truy xuất thông tin, xếp hạng, thành tích sinh viên<br />
+&#8211; Lưu dữ Data, học bạ điện tử<br />
+&#8211; Quản lý, phân quyền, giám sát online App, Web</p>
+</div>
+                                </div>
+                                <div class="design_mobile_app-button">
+                                    <a href="https://xuanthanhphat.vn/dich-vu/smart-school-xtp/" class="escapeat">Xem chi tiết <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                    <a href="" class="escapeat">Nhận Catalogue <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <style>
+                                        #design_block-4 .design_mobile_app-text-details {
+                            color: #666;
+                        }
+                         
+                    #design_block-4 .design_mobile_app_img  {
+                        padding-bottom: inherit;
+                        padding-left: 80px;
+                        padding-right: inherit;
+                    }
+                </style>
+                            <section class="design_block" id="design_block-5">
+                    <div class="container">
+                        <div class="row">       
+                            <div class="col-lg-8 order-lg-1">
+                                <div class="design_mobile_app_img" >
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"  alt="Hạ tầng mạng" class=" wow fadeInLeft" data-wow-duration="2s" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2022/01/ha-tang-home.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2022/01/ha-tang-home.png"  alt="Hạ tầng mạng" class=" wow fadeInLeft" data-wow-duration="2s"></noscript>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 order-lg-2">
+                                <div class="design_mobile_app-text-details">
+                                    <h2 class="design_mobile_app-title"><strong>05.</strong><br><strong>Hạ tầng mạng</strong></h2>
+                                    <div class="design_mobile_app-text"><p class="design_mobile_app-text">&#8211; Tuân thủ các tiêu chuẩn thiết kế và thi công.</p>
+<p class="design_mobile_app-text">&#8211; Vật tư, thiết bị sử dụng của các hãng lớn, uy tín.</p>
+<p class="design_mobile_app-text">&#8211; Hệ thống lưu trữ tối ưu theo cấu trúc công ty, phù hợp với cơ sở hạ tầng.</p>
+<p class="design_mobile_app-text">&#8211; Quản trị hệ thống dễ dàng, nhanh chóng.</p>
+<p class="design_mobile_app-text">&#8211; Bảo mật dựa trên bảo mật phần cứng, các dịch vụ bảo mật MSS.</p>
+</div>
+                                </div>
+                                <div class="design_mobile_app-button">
+                                    <a href="https://xuanthanhphat.vn/dich-vu/ha-tang-mang/" class="escapeat">Xem chi tiết <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                    <a href="" class="escapeat">Nhận Catalogue <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <style>
+                                        #design_block-5 {
+                            background-color: #181f27;
+                        }
+                         
+                    #design_block-5 .design_mobile_app_img  {
+                        padding-bottom: inherit;
+                        padding-left: inherit;
+                        padding-right: 150px;
+                    }
+                </style>
+                            <section class="design_block" id="design_block-6">
+                    <div class="container">
+                        <div class="row">       
+                            <div class="col-lg-8 order-lg-2">
+                                <div class="design_mobile_app_img" >
+                                    <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E"  alt="An ninh mạng" class=" wow fadeInRight" data-wow-duration="2s" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2022/01/anninhmang.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2022/01/anninhmang.png"  alt="An ninh mạng" class=" wow fadeInRight" data-wow-duration="2s"></noscript>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 order-lg-1">
+                                <div class="design_mobile_app-text-details">
+                                    <h2 class="design_mobile_app-title"><strong>06.</strong><br><strong>An ninh mạng</strong></h2>
+                                    <div class="design_mobile_app-text"><p class="design_mobile_app-text">&#8211; Bảo vệ tính bảo mật của dữ liệu.</p>
+<p class="design_mobile_app-text">&#8211; Bảo toàn tính toàn vẹn của dữ liệu.</p>
+<p class="design_mobile_app-text">&#8211; Thúc đẩy sự sẵn có của dữ liệu cho người dùng được ủy quyền.</p>
+</div>
+                                </div>
+                                <div class="design_mobile_app-button">
+                                    <a href="https://xuanthanhphat.vn/dich-vu/an-ninh-mang/" class="escapeat">Xem chi tiết <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                    <a href="" class="escapeat">Nhận Catalogue <i class="icomoon icomoon-icon-redo2"></i> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <style>
+                                        #design_block-6 .design_mobile_app-text-details {
+                            color: #666;
+                        }
+                         
+                    #design_block-6 .design_mobile_app_img  {
+                        padding-bottom: inherit;
+                        padding-left: 80px;
+                        padding-right: inherit;
+                    }
+                </style>
+                        </div>
+    <!-- KHởi đầu từ -->
+    <section id="start_from">
+        <div class="container">
+            <div class="row">
+                                    			
+                        <div class="col-md-12 col-lg-8 offset-lg-2">
+                            <h3 class="start_from-title"> Khởi đầu từ</h3>
+                            <p class="start_from-text">Một ý tưởng của bạn và cùng Project Manager của chúng tôi. Xuân Thành Phát sẽ phân tích ưu/khuyết, đưa ra những tính năng phù hợp nhất cho kế hoạch, phương hướng phát triển, độ phù hợp với thị trường và kinh phí dự kiến.
+
+</p>
+                            <div class="start_from-button">
+                                <a href="https://xuanthanhphat.vn/lien-he" style="" class="escapea" data-bg-disabled="true"> <i class="icomoon icomoon-icon-thumbs-up  animate-icon animate-to-left"></i> <span>Liên hệ ngay</span></a>
+                            </div>
+                        </div>
+                                            
+            </div>
+        </div>
+    </section>
+    <!-- Video -->
+    <section id="video">
+        <div class="container">
+            <div class="row">
+                                    			
+                        <div class="col-md-7">
+                            <div class="rll-youtube-player" data-src="https://www.youtube.com/embed/XWfgOHXdgPQ" data-id="XWfgOHXdgPQ" data-query=""></div><noscript><iframe src="https://www.youtube.com/embed/XWfgOHXdgPQ" data-src="https://www.youtube.com/embed/XWfgOHXdgPQ" class="my-lazy" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></noscript>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="video_box">
+                                <h3 class="procedure-title">XTP - SOFTWARE</h3>
+                                <div class="procedure-line"></div>
+                                <p> Hãy sở hữu riêng cho mình một hệ thống ứng dụng di động, website và các công nghệ mạnh mẽ để bắt kịp xu hướng và bước đến thành công.</p>
+                            </div>
+                        </div>
+                                                  
+            </div>
+        </div>
+    </section>
+    <section id="intro_customer">
+        <div class="intro_customer_ng">
+            <div class="container">
+                <div class="intro_customer_title">
+                    <h3>Dự án tiêu biểu</h3>
+                    <hr>
+                </div>
+                <div class="owl-carousel owl-theme owl-partner">
+                                            			
+                            <div class="item">
+                                <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/duantb1.jpg"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/duantb1.jpg"></noscript></a>
+                            </div>
+                        			
+                            <div class="item">
+                                <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/duantb3.jpg"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/duantb3.jpg"></noscript></a>
+                            </div>
+                        			
+                            <div class="item">
+                                <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/duantb2.jpg"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/duantb2.jpg"></noscript></a>
+                            </div>
+                                                            </div>
+            </div>
+        </div>
+    </section>
+    <!-- Số liệu -->
+    <section id="data_start">
+        <div class="container">
+                            	
+                    <div class="row">
+                                                    			
+                                <div class="col-md-4">
+                                    <div class="media">
+                                        <div class="achievement-icon"><i class="icomoon icomoon-icon-support"></i></div>
+                                        <div class="media-body">
+                                            <h4><span id="data_start-1"></span> <sup>+</sup></h4>
+                                            <p>Dự Án</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            			
+                                <div class="col-md-4">
+                                    <div class="media">
+                                        <div class="achievement-icon"><i class="icomoon icomoon-icon-download4"></i></div>
+                                        <div class="media-body">
+                                            <h4><span id="data_start-2"></span> <sup>+</sup></h4>
+                                            <p>Ứng Dụng</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            			
+                                <div class="col-md-4">
+                                    <div class="media">
+                                        <div class="achievement-icon"><i class="icomoon icomoon-icon-heart"></i></div>
+                                        <div class="media-body">
+                                            <h4><span id="data_start-3"></span> <sup>+</sup></h4>
+                                            <p>Khách Hàng</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                                                        </div>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="data_start_box">
+                                <h3>Hãy bắt đầu ngay hôm nay</h3>
+                                <p>Sản xuất giải pháp phần mềm thông minh, ứng dụng di động ngay hôm nay để nâng cấp dịch vụ của bạn lên tầng cao mới.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="data_start_box_btn">
+                                <a href="https://xuanthanhphat.vn/lien-he" class="escapea"> <i class="icomoon icomoon-icon-redo2"></i><span>Liên hệ</span></a>
+                            </div>
+                        </div>
+                    </div>
+                                    </div>
+    </section>
+    <!--Đối tác -->
+    <section id="partner">
+        <div class="container">
+                            	
+                    <div class="partner-title">
+                        <h3>Đối tác của chúng tôi</h3>
+                        <p>Hợp tác cùng phát triển</p>
+                    </div>
+                    <div class="partner_box">
+                                                    			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/dai-hoc-giao-thong-van-tai.jpg"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/dai-hoc-giao-thong-van-tai.jpg"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/logo-1.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/logo-1.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/dai-hoc-bach-khoa.jpeg"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/dai-hoc-bach-khoa.jpeg"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-bach-mai.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-bach-mai.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-tai-mui-hong-trung-uong.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-tai-mui-hong-trung-uong.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-da-khoa-da-nang.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-da-khoa-da-nang.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-da-khoa-bac-ninh.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-da-khoa-bac-ninh.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-viet-duc.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-viet-duc.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-da-khoa-nghe-an.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-da-khoa-nghe-an.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-nhi-trung-uong.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-nhi-trung-uong.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-hong-ngoc.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/benh-vien-hong-ngoc.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/boyte.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/11/boyte.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/logo-bao-hiem-xa-hoi-viet-nam.jpg"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/11/logo-bao-hiem-xa-hoi-viet-nam.jpg"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/mamnontuongmai.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/11/mamnontuongmai.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/mamnonhoamai.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/11/mamnonhoamai.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/BIDV_Logo.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/BIDV_Logo.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/Logo_TPBank.svg_.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/Logo_TPBank.svg_.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/1200px-Vietcombank_logo.svg_.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/1200px-Vietcombank_logo.svg_.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/brasol.vn-logo-vietinbank-logo.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/brasol.vn-logo-vietinbank-logo.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/Logo_MB_new.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/Logo_MB_new.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/brasol.vn-thiet-ke-logo-vpbank-vpbank-logo.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/brasol.vn-thiet-ke-logo-vpbank-vpbank-logo.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/1024px-Argibank_logo.svg_.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/1024px-Argibank_logo.svg_.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/fpt.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/09/fpt.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child partner_child_even">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/misa.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/11/misa.png"></noscript></a>
+                                </div>
+                            			
+                                <div class="partner_child ">
+                                    <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/giaiphaphoadonthongminh.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/11/giaiphaphoadonthongminh.png"></noscript></a>
+                                </div>
+                                                                        </div>
+                                    </div>
+    </section>
+    <!-- Đội ngũ -->
+    <section id="team">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                                            	
+                            <div class="team_box">
+                                <h3>Đội Ngũ</h3>
+                                <p>Đồng hành với sự phát triển của Xuân Thành Phát chính là sự phát triển đội ngũ nhân sự đầy tài năng, nhiệt huyết và dày dặn kinh nghiệm. Hơn hết, chúng tôi làm việc không ngừng nghỉ vì đam mê của mình.</p>
+                            </div>
+                                                            </div>
+                <div class="col-md-6">
+                    <div class="azoom-skill active">
+                        <div class="azoom-skill-bg" style="background:#f0f0f0;"></div>
+                        <div id="team-1" class="azoom-skill-value-bg" style="background:#f63149; width:40%;">
+                            <div class="azoom-skill-value">95%</div>
+                        </div>
+                        <div class="azoom-skill-title cft-lang">Tài Năng</div>
+                    </div>
+                    <div class="azoom-skill active">
+                        <div class="azoom-skill-bg" style="background:#f0f0f0;"></div>
+                        <div id="team-2" class="azoom-skill-value-bg" style="background:#2196f3; width:40%;">
+                            <div class="azoom-skill-value">90%</div>
+                        </div>
+                        <div class="azoom-skill-title cft-lang">Kinh Nghiệm</div>
+                    </div>
+                    <div  class="azoom-skill active">
+                        <div class="azoom-skill-bg" style="background:#f0f0f0;"></div>
+                        <div id="team-3" class="azoom-skill-value-bg" style="background:#4caf50; width:40%;">
+                            <div class="azoom-skill-value">99%</div>
+                        </div>
+                        <div class="azoom-skill-title cft-lang" key="HOME-BLOCK9-15">Tâm Huyết</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="container">
+            <div class="news-title">
+                <h3 style="text-align: center;">Tin Tức Nổi Bật</h3>
+            </div>
+            <div class="owl-carousel owl-theme owl-news">
+                                                 
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Ứng dụng của Big Data trong lĩnh vực chăm sóc sức khoẻ" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/databig.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/databig.jpg" alt="Ứng dụng của Big Data trong lĩnh vực chăm sóc sức khoẻ"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Ứng dụng của Big Data trong lĩnh vực chăm sóc sức khoẻ</h4></a>
+                                <p class="card-text">Big Data là một trong những ứng dụng công nghệ có sức ảnh hưởng sâu rộng nhất hiện tại. Ứng dụng của Big Data đóng vai trò đặc biệt...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Ưu điểm của giải pháp màn hình kỹ thuật số trong bệnh viện và chăm sóc bệnh nhân" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/man-hinh-hien-thi-cho-benh-vien.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/man-hinh-hien-thi-cho-benh-vien.jpg" alt="Ưu điểm của giải pháp màn hình kỹ thuật số trong bệnh viện và chăm sóc bệnh nhân"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Ưu điểm của giải pháp màn hình kỹ thuật số trong bệnh viện và chăm sóc bệnh nhân</h4></a>
+                                <p class="card-text">Màn hình kỹ thuật số đáp ứng tối ưu nhu cầu sử dụng và phù hợp với bất kì không gian vị trí hay cơ sở chăm sóc sức...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Chức năng phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/banner2.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/10/banner2.jpg" alt="Chức năng phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Chức năng phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP</h4></a>
+                                <p class="card-text">Như XTP Software đã giới thiệu ở các bài viết trước, HIS HOSPITAL XTP là phần mềm quản lý bệnh viện đầu cuối được xây dựng,nghiên cứu và phát...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Công ty cổ phần đầu tư phát triển công nghệ Xuân Thành Phát" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/tempsnip.png"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/tempsnip.png" alt="Công ty cổ phần đầu tư phát triển công nghệ Xuân Thành Phát"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Công ty cổ phần đầu tư phát triển công nghệ Xuân Thành Phát</h4></a>
+                                <p class="card-text">Là công ty công nghệ chuyên sản xuất phần mềm hàng đầu tại Việt Nam, luôn tiên phong trong ứng dụng công nghệ mới và với hơn 15 năm...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="XTP SOFTWARE &#8211; Giải pháp phần mềm quản lý bệnh viện thông minh XTP ứng dụng công nghệ điện toán đám mây" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/shutterstockai.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/shutterstockai.jpg" alt="XTP SOFTWARE &#8211; Giải pháp phần mềm quản lý bệnh viện thông minh XTP ứng dụng công nghệ điện toán đám mây"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">XTP SOFTWARE &#8211; Giải pháp phần mềm quản lý bệnh viện thông minh XTP ứng dụng công nghệ điện toán đám mây</h4></a>
+                                <p class="card-text">Trong điều kiện hiện nay, ngành y tế đã thay đổi quan điểm về cách phục vụ bệnh nhân bằng công nghệ 4.0. Để thuận lợi nhất cho bệnh...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Phần mềm quản lý máy y tế LIS HOSPITAL XTP là gì và có những tính năng nào nổi bật?" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/listingnang.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/listingnang.jpg" alt="Phần mềm quản lý máy y tế LIS HOSPITAL XTP là gì và có những tính năng nào nổi bật?"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Phần mềm quản lý máy y tế LIS HOSPITAL XTP là gì và có những tính năng nào nổi bật?</h4></a>
+                                <p class="card-text">ĐỊNH NGHĨA VỀ LIS HOSPITAL XTP ? Hệ thống Lis đóng vai trò lưu trữ và thu nhận kết quả xét nghiệm, truyền và nhận dữ liệu trên mạng...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP – Giải pháp tối ưu cho bệnh viện của bạn" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/hisgiaiphap.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/hisgiaiphap.jpg" alt="Phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP – Giải pháp tối ưu cho bệnh viện của bạn"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP – Giải pháp tối ưu cho bệnh viện của bạn</h4></a>
+                                <p class="card-text">Việc ứng dụng CNTT trong quản lý bệnh viện nhằm góp phần nâng cao chất lượng. Thúc đẩy bệnh viện phát triển toàn diện, từng bước đáp ứng được...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Phần mềm quản lý bệnh viện EMR" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/emr.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/emr.jpg" alt="Phần mềm quản lý bệnh viện EMR"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Phần mềm quản lý bệnh viện EMR</h4></a>
+                                <p class="card-text">Phần mềm quản lý bệnh viện EMR ( Bệnh án điện tử EMR ) là hệ thống phần mềm bệnh án điện tử được nghiên cứu phát triển bởi...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Phần mềm quản lý bệnh viện RIS-PACS  ( lưu trữ và truyền tải hình ảnh )" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/pac.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/pac.jpg" alt="Phần mềm quản lý bệnh viện RIS-PACS  ( lưu trữ và truyền tải hình ảnh )"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Phần mềm quản lý bệnh viện RIS-PACS  ( lưu trữ và truyền tải hình ảnh )</h4></a>
+                                <p class="card-text">Áp dụng cho Bệnh viện thông minh &#8211; Bệnh viện không in phim 1. NỀN TẢNG CÔNG NGHỆ VRPACS hỗ trợ hai nền tảng là Winform và WebForm: &#8211;...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/quanlydaucuoihis.png"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/quanlydaucuoihis.png" alt="Phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP</h4></a>
+                                <p class="card-text">Trước những thực trạng về Y tế tại Việt Nam, XTP Software đã xây dựng giải pháp quản lý bệnh viện đầu cuối. Ứng dụng CNTT tổng thể trong...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="XTP Software chính thức triển khai phần mềm quản lý bệnh viện thông minh XTP HIS &#8211; LIS tại Phòng khám Đa khoa Việt Đoàn tỉnh Bắc Ninh" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/xtp-software.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/xtp-software.jpg" alt="XTP Software chính thức triển khai phần mềm quản lý bệnh viện thông minh XTP HIS &#8211; LIS tại Phòng khám Đa khoa Việt Đoàn tỉnh Bắc Ninh"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">XTP Software chính thức triển khai phần mềm quản lý bệnh viện thông minh XTP HIS &#8211; LIS tại Phòng khám Đa khoa Việt Đoàn tỉnh Bắc Ninh</h4></a>
+                                <p class="card-text">Phòng khám Đa khoa Việt Đoàn tỉnh Bắc Ninh đã triển khai và đưa vào sử dụng phần mềm quản lý bệnh viện thông minh XTP HIS &#8211; LIS...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="XTP Software &#8211; Phần mềm quản lý máy y tế LIS HOSPITAL XTP" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/09/z2767525323539_cae444c4c20fd0896ab700f536c5ce79.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/09/z2767525323539_cae444c4c20fd0896ab700f536c5ce79.jpg" alt="XTP Software &#8211; Phần mềm quản lý máy y tế LIS HOSPITAL XTP"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">XTP Software &#8211; Phần mềm quản lý máy y tế LIS HOSPITAL XTP</h4></a>
+                                <p class="card-text">Tiêu chuẩn HL7, HL7-CDA, DICOM, ICD-10 Phần mềm quản lý máy y tế LIS HOSPITAL XTP đóng vai trò lưu trữ và thu nhận kết quả xét nghiệm, truyền...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Hệ thống lấy số thứ tự và xếp hàng gọi tên bệnh nhân" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/goitenbenhnhantudong.png"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/goitenbenhnhantudong.png" alt="Hệ thống lấy số thứ tự và xếp hàng gọi tên bệnh nhân"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Hệ thống lấy số thứ tự và xếp hàng gọi tên bệnh nhân</h4></a>
+                                <p class="card-text">Việc tích hợp Hệ thống xếp hàng thông minh vào phần mềm quản lý bệnh viện đầu cuối HIS HOSPITAL XTP ví như là &#8220;HỔ MỌC THÊM CÁNH&#8221;, bởi...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Phần mềm quản lý bệnh viên đầu cuối tốt nhất" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/11/his-lis.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/11/his-lis.jpg" alt="Phần mềm quản lý bệnh viên đầu cuối tốt nhất"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Phần mềm quản lý bệnh viên đầu cuối tốt nhất</h4></a>
+                                <p class="card-text">Hiện nay có rất nhiều phần mềm quản lý bệnh viện khác nhau, khiến cho các bệnh viện gặp khó khăn trong quá trình lựa chọn, đặc biệt là...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Ra mắt hệ sinh thái doanh nghiệp 4.0 BKC groups" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/z2880895079156-a79d6364c8eadc4b31b9e5a9d5d6d38d-scaled.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/10/z2880895079156-a79d6364c8eadc4b31b9e5a9d5d6d38d-scaled.jpg" alt="Ra mắt hệ sinh thái doanh nghiệp 4.0 BKC groups"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Ra mắt hệ sinh thái doanh nghiệp 4.0 BKC groups</h4></a>
+                                <p class="card-text">Ngày 23/10 vừa qua, công ty CP đầu tư &amp; phát triển công nghệ Xuân Thành Phát đã long trọng tổ chức sự kiện đáng nhớ với sự góp...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Chúc mừng ngày phụ nữ Việt Nam 20/10/2021" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/d814afc05d599407cd48.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/10/d814afc05d599407cd48.jpg" alt="Chúc mừng ngày phụ nữ Việt Nam 20/10/2021"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Chúc mừng ngày phụ nữ Việt Nam 20/10/2021</h4></a>
+                                <p class="card-text">Với quan điểm chú trọng phát triển cốt lõi con người, tại XTP đời sống tinh thần của cán bộ nhân viên luôn được quan tâm đúng mực. Nhân...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                                                    <div class="item">
+                        <div class="card">              
+                            <a href="">
+                                <img  style="width: 100%;" class="card-img-top" src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Chúc mừng ngày doanh nhân Việt Nam tại XTP" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/doanhnhanvn.jpg"><noscript><img  style="width: 100%;" class="card-img-top" src="localhost:xuanthanhphat/wp-content/uploads/2021/10/doanhnhanvn.jpg" alt="Chúc mừng ngày doanh nhân Việt Nam tại XTP"></noscript>
+                            </a>
+                            <div class="card-body">
+                                <a href=""><h4 class="card-title">Chúc mừng ngày doanh nhân Việt Nam tại XTP</h4></a>
+                                <p class="card-text">Ngày Doanh nhân Việt Nam mang ý nghĩa lịch sử sâu sắc &#8211; đó chính là ngày Chủ tịch Hồ Chí Minh gửi thư cho giới công thương Việt...</p>                         
+                            </div>
+                        </div>
+                    </div>
+                            </div>
+        </div>     
+    </section>
+    <div id="rockthemes-inline-nav">
+        <ul>
+            <li class="">
+                <span class="rin-title">Wellcome</span>
+                <a href="#banner"><span class="rin-handler"></span></a>
+            </li>
+            <li>
+                <span class="rin-title">Quy trình</span>
+                <a href="#procedure"><span class="rin-handler"></span></a>
+            </li>
+            <li>
+                <span class="rin-title">Dịch vụ</span>
+                <a href="#service"><span class="rin-handler"></span></a>
+            </li>
+            <li>
+                <span class="rin-title">Liên hệ</span>
+                <a href="#start_from"><span class="rin-handler"></span></a>
+            </li>
+            <li>
+                <span class="rin-title">Dự án</span>
+                <a href="#intro_customer"><span class="rin-handler"></span></a>
+            </li>
+            <li>
+                <span class="rin-title">Đối tác</span>
+                <a href="#partner"><span class="rin-handler"></span></a>
+            </li>
+        </ul>
+    </div>
+ <!-- footer -->
+ <footer id="footer">
+     <div class="container">
+         <div class="row">
+             <div class="col-lg-5">
+                 <div class="footer-box-logo">
+                     <a class="footer-logo" href="localhost:xuanthanhphat"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="localhost:xuanthanhphat/wp-content/uploads/2021/10/logo.png"><noscript><img src="localhost:xuanthanhphat/wp-content/uploads/2021/10/logo.png"></noscript></a>
+                     <div class="footer-address">
+                         <div class="media">
+                             <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="hotline" class="media-img" data-lazy-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/hotline.png"><noscript><img src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/hotline.png" alt="hotline" class="media-img"></noscript>
+                             <div class="media-body align-self-center">
+                                 <p>0988.176.899 / 0903.443.574</p>
+                             </div>
+                         </div>
+                         <div class="media">
+                             <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Thông tin email" class="media-img" data-lazy-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/email.png"><noscript><img src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/email.png" alt="Thông tin email" class="media-img"></noscript>
+                             <div class="media-body align-self-center">
+                                 <p>xuanthanhphatvn@gmail.com</p>
+                             </div>
+                         </div>
+                         <div class="media">
+                             <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="địa chỉ xuân thành phát" class="media-img" data-lazy-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/address.jpg"><noscript><img src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/address.jpg" alt="địa chỉ xuân thành phát" class="media-img"></noscript>
+                             <div class="media-body align-self-center">
+                                 <p><p>VPHN: Tòa nhà N09b2, khu đô thị mới Dịch Vọng, quận Cầu Giấy, TP Hà Nội<br />
+VPHCM: Tòa nhà Terra Royal, Số 280 Nam Kỳ Khởi Nghĩa, Phường Võ Thị Sáu, Quận 3, TP.HCM</p>
+</p>
+                             </div>
+                         </div>
+                         <div class="media">
+                             <p style="margin:auto 0;color:#333;">Liên kết mạng xã hôi:</p>
+                             <div class="icon" style="padding-left:20px">
+                                 <a href="https://www.facebook.com/XTPSoftware/" target="_blank"><i class="fab fa-facebook-square" style="font-size:40px; color:#35598E"></i></a>
+                                 <a href="https://www.youtube.com/channel/UCZVehlQt6crDijq-LBHkBfA" target="_blank"><i class="fab fa-youtube-square" style="font-size:40px; color:#B82521"></i></a>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <div class="col-lg-3">
+                 <div class="footer-title">
+                     <h4>Xuanthanhphat info</h4>
+                     <hr>
+                 </div>
+                 <div class="footer-box">
+                     <ul id="footer-main" class="menu"><li id="menu-item-116" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-116"><a href="">Về chúng tôi</a></li>
+<li id="menu-item-115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-115"><a href="">Đăng ký dịch vụ</a></li>
+<li id="menu-item-782" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-782"><a href="">Blogs</a></li>
+</ul>                 </div>
+                 <div class="footer-title" style="padding-top: 50px;">
+                     <h4>Đơn vị group XTP</h4>
+                     <hr>
+                 </div>
+                 <div class="footer-box">
+                     <ul id="footer-group" class="menu"><li id="menu-item-1145" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1145"><a href="https://xuanthanhphat.vn/">xuanthanhphat.vn</a></li>
+<li id="menu-item-1146" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1146"><a href="http://bachkhoahn.vn">bachkhoahn.vn</a></li>
+<li id="menu-item-1147" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1147"><a href="https://phongkhamchuyengia.vn/">phongkhamchuyengia.vn</a></li>
+</ul>                 </div>
+             </div>
+             <div class="col-lg-4">
+                 <div class="footer-title">
+                     <h4>Dịch vụ</h4>
+                     <hr>
+                 </div>
+                 <div class="footer-box">
+                     <ul id="footer-sevice" class="menu"><li id="menu-item-1159" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1159"><a href="">Thiết kế mobile app</a></li>
+<li id="menu-item-549" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-549"><a href="">Phần mềm quản lý bệnh viện thông minh</a></li>
+<li id="menu-item-548" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-548"><a href="">Phần mềm quản lý máy lâm sàng</a></li>
+<li id="menu-item-237" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-237"><a href="">Phần mềm quản lý trường học thông minh</a></li>
+<li id="menu-item-117" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-117"><a href="">Hạ tầng mạng</a></li>
+<li id="menu-item-244" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-244"><a href="">An ninh mạng</a></li>
+</ul>                 </div>
+             </div>
+         </div>
+     </div>
+ </footer>
+ <div class="copyright">
+     <div class="container">
+         <div class="copyright_box">
+             © Copyright - <a href="localhost:xuanthanhphat">xuanthanhphat.vn</a>
+         </div>
+     </div>
+ </div>
+
+ <!-- scroll top -->
+ <!-- <div class="gototop js-top">
+        <a href="#" class="js-gotop" title="Lên đầu trang">TOP</a>
+    </div> -->
+
+ <!-- tạo nut gọi -->
+ <div id="button-contact-vr">
+     <div id="zalo-vr" class="button-contact">
+         <div class="phone-vr">
+             <div class="phone-vr-circle-fill"></div>
+             <div class="phone-vr-img-circle">
+                 <a href="tel: 0988.176.899" title="gọi điện thoại">
+                     <img class="lazy loaded" src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/phone-2.png" data-src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/imgs/phone-2.png" alt="Phone" data-was-processed="true">
+                 </a>
+             </div>
+         </div>
+     </div>
+ </div>
+ <!-- Messenger Plugin chat Code -->
+ <div id="fb-root"></div>
+
+ <!-- Your Plugin chat code -->
+ <div id="fb-customer-chat" class="fb-customerchat">
+ </div>
+
+ <script type="rocketlazyloadscript">
+     var chatbox = document.getElementById('fb-customer-chat');
+     chatbox.setAttribute("page_id", "109300550929217");
+     chatbox.setAttribute("attribution", "biz_inbox");
+
+     window.fbAsyncInit = function() {
+         FB.init({
+             xfbml: true,
+             version: 'v11.0'
+         });
+     };
+
+     (function(d, s, id) {
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) return;
+         js = d.createElement(s);
+         js.id = id;
+         js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+         fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+ </script>
+
+ <!-- js -->
+ <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/js/jquery.min.js"></script>
+ <script id='contact-form-7-js-extra'>
+var wpcf7 = {"api":{"root":"","namespace":"contact-form-7\/v1"},"cached":"1"};
+</script>
+<script type="rocketlazyloadscript" id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id='rocket-preload-links-js-extra'>
+var RocketPreloadLinksConfig = {"excludeUris":"\/xuanthanhphat(\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$))|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"localhost:xuanthanhphat","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="localhost:xuanthanhphat/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script><script>function lazyLoadThumb(e){var t='<img loading="lazy" data-lazy-src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"><noscript><img src="https://i.ytimg.com/vi/ID/hqdefault.jpg" alt="" width="480" height="360"></noscript>',a='<div class="play"></div>';return t.replace("ID",e)+a}function lazyLoadYoutubeIframe(){var e=document.createElement("iframe"),t="ID?autoplay=1";t+=0===this.dataset.query.length?'':'&'+this.dataset.query;e.setAttribute("src",t.replace("ID",this.dataset.src)),e.setAttribute("frameborder","0"),e.setAttribute("allowfullscreen","1"),e.setAttribute("allow", "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"),this.parentNode.replaceChild(e,this)}document.addEventListener("DOMContentLoaded",function(){var e,t,a=document.getElementsByClassName("rll-youtube-player");for(t=0;t<a.length;t++)e=document.createElement("div"),e.setAttribute("data-id",a[t].dataset.id),e.setAttribute("data-query", a[t].dataset.query),e.setAttribute("data-src", a[t].dataset.src),e.innerHTML=lazyLoadThumb(a[t].dataset.id),e.onclick=lazyLoadYoutubeIframe,a[t].appendChild(e)});</script> <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/vendor/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+ <script type="rocketlazyloadscript" data-minify="1" src="localhost:xuanthanhphat/wp-content/cache/min/1/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js?ver=1635242232"></script>
+ <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
+ <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/js/jquery.easing.1.3.js?ver=1634615142"></script>
+ <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="localhost:xuanthanhphat/wp-content/themes/xuanthanhphat/assets/js/wow.min.js"></script>
+
+ <script type="rocketlazyloadscript">
+     new WOW().init();
+ </script>
+ <script type="rocketlazyloadscript">
+     //  $(document).on('click', 'a[href^="#"]', function(event) {
+     //      event.preventDefault();
+     //      $('html, body').animate({
+     //          scrollTop: $($.attr(this, 'href')).offset().top
+     //      }, 1000);
+
+     //  });
+     $(document).ready(function() {
+         var goToTop = function() {
+             $('.js-gotop').on('click', function(event) {
+                 event.preventDefault();
+                 $('html, body').animate({
+                     scrollTop: $('html').offset().top
+                 }, 500, 'easeInOutExpo');
+                 return false;
+             });
+
+             $(window).scroll(function() {
+                 var $win = $(window);
+                 if ($win.scrollTop() > 200) {
+                     $('.js-top').addClass('active');
+                 } else {
+                     $('.js-top').removeClass('active');
+                 }
+             });
+         };
+         goToTop();
+     });
+ </script>
+ <script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+     $(document).ready(function() {
+         $('.owl-banner').owlCarousel({
+             loop: true,
+             margin: 10,
+             nav: true,
+             autoplay: true,
+             autoplayTimeout: 6500,
+             autoplayHoverPause: true,
+             navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+             items: 1,
+         });
+
+         $('.owl-partner').owlCarousel({
+             loop: true,
+             margin: 20,
+             nav: true,
+             dots: false,
+             autoplay: true,
+             autoplayTimeout: 3500,
+             navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+             responsive: {
+                 0: {
+                     items: 1
+                 },
+                 370: {
+                     items: 1
+                 },
+                 600: {
+                     items: 2
+                 },
+                 1000: {
+                     items: 2
+                 }
+             }
+         });
+
+         $('.owl-project').owlCarousel({
+             loop: true,
+             margin: 15,
+             nav: false,
+             dots: false,
+             autoplay: true,
+             autoplayTimeout: 3500,
+             navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+             responsive: {
+                 0: {
+                     items: 1
+                 },
+                 370: {
+                     items: 1
+                 },
+                 600: {
+                     items: 1
+                 },
+                 1000: {
+                     items: 1
+                 }
+             }
+         });
+
+         $('.owl-smart_project').owlCarousel({
+             loop: true,
+             margin: 15,
+             nav: false,
+             dots: false,
+             autoplay: true,
+             autoplayTimeout: 3500,
+             navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+             responsive: {
+                 0: {
+                     items: 1
+                 },
+                 370: {
+                     items: 1
+                 },
+                 600: {
+                     items: 2
+                 },
+                 1000: {
+                     items: 4
+                 }
+             }
+         });
+
+
+         $('.owl-news').owlCarousel({
+             loop: true,
+             margin: 15,
+             nav: false,
+             dots: false,
+             autoplay: true,
+             autoplayTimeout: 2500,
+             navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+             responsive: {
+                 0: {
+                     items: 2
+                 },
+                 370: {
+                     items: 2
+                 },
+                 600: {
+                     items: 2
+                 },
+                 1000: {
+                     items: 4
+                 }
+             }
+         });
+     });
+ </script>
+ <!-- js custom -->
+ <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="localhost:xuanthanhphat/wp-content/cache/min/1/xuanthanhphat/wp-content/themes/xuanthanhphat/assets/js/main.js?ver=1634615142"></script>
+
+ </body>
+
+ </html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1643187670 -->

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let r;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",r=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){let n=e[t];Object.defineProperty(e,t,{get:()=>n||function(){},set(r){e["rocket"+t]=n=r}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,r=document.createRange(),i=n.parentElement;let o=e.get(n);void 0===o&&(o=n.nextSibling,e.set(n,o));const a=document.createDocumentFragment();r.setStart(a,0),a.appendChild(r.createContextualFragment(t)),i.insertBefore(a,o)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+ 		Hạ tầng mạng - Xuân Thành Phát 
+	</title>
+	<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v17.1 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>Hạ tầng mạng - Xuân Thành Phát</title>
+	<link rel="canonical" href="https://xuanthanhphat.vn/dich-vu/ha-tang-mang/" />
+	<meta property="og:locale" content="vi_VN" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Hạ tầng mạng - Xuân Thành Phát" />
+	<meta property="og:url" content="https://xuanthanhphat.vn/dich-vu/ha-tang-mang/" />
+	<meta property="og:site_name" content="Xuân Thành Phát" />
+	<meta property="article:modified_time" content="2021-09-03T08:01:02+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"http://xuanthanhphat.vn/#website","url":"http://xuanthanhphat.vn/","name":"Xu\u00e2n Th\u00e0nh Ph\u00e1t","description":"M\u1ed9t trang web m\u1edbi s\u1eed d\u1ee5ng WordPress","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"http://xuanthanhphat.vn/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"vi"},{"@type":"WebPage","@id":"https://xuanthanhphat.vn/dich-vu/ha-tang-mang/#webpage","url":"https://xuanthanhphat.vn/dich-vu/ha-tang-mang/","name":"H\u1ea1 t\u1ea7ng m\u1ea1ng - Xu\u00e2n Th\u00e0nh Ph\u00e1t","isPartOf":{"@id":"http://xuanthanhphat.vn/#website"},"datePublished":"2021-08-31T07:08:20+00:00","dateModified":"2021-09-03T08:01:02+00:00","breadcrumb":{"@id":"https://xuanthanhphat.vn/dich-vu/ha-tang-mang/#breadcrumb"},"inLanguage":"vi","potentialAction":[{"@type":"ReadAction","target":["https://xuanthanhphat.vn/dich-vu/ha-tang-mang/"]}]},{"@type":"BreadcrumbList","@id":"https://xuanthanhphat.vn/dich-vu/ha-tang-mang/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang ch\u1ee7","item":"http://xuanthanhphat.vn/"},{"@type":"ListItem","position":2,"name":"D\u1ecbch v\u1ee5","item":"https://xuanthanhphat.vn/dich-vu/"},{"@type":"ListItem","position":3,"name":"H\u1ea1 t\u1ea7ng m\u1ea1ng"}]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<link rel="alternate" type="application/rss+xml" title="Dòng thông tin Xuân Thành Phát &raquo;" href="https://xuanthanhphat.vn/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Dòng phản hồi Xuân Thành Phát &raquo;" href="https://xuanthanhphat.vn/comments/feed/" />
+<style>
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://xuanthanhphat.vn/wp-includes/css/dist/block-library/style.min.css?ver=5.8.1' media='all' />
+<link data-minify="1" rel='stylesheet' id='contact-form-7-css'  href='https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=1633937880' media='all' />
+<link data-minify="1" rel='stylesheet' id='rs-plugin-settings-css'  href='https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/plugins/revslider/public/assets/css/rs6.css?ver=1633955849' media='all' />
+<style id='rs-plugin-settings-inline-css'>
+#rs-demo-id {}
+</style>
+<link rel='stylesheet' id='xuanthanhphat-style-css'  href='https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/style.css?ver=1.0.0' media='all' />
+<script type="rocketlazyloadscript" src='https://xuanthanhphat.vn/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type="rocketlazyloadscript" src='https://xuanthanhphat.vn/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type="rocketlazyloadscript" src='https://xuanthanhphat.vn/wp-content/plugins/revslider/public/assets/js/rbtools.min.js?ver=6.4.3' id='tp-tools-js'></script>
+<script type="rocketlazyloadscript" src='https://xuanthanhphat.vn/wp-content/plugins/revslider/public/assets/js/rs6.min.js?ver=6.4.3' id='revmin-js'></script>
+<link rel="https://api.w.org/" href="https://xuanthanhphat.vn/wp-json/" /><link rel="alternate" type="application/json" href="https://xuanthanhphat.vn/wp-json/wp/v2/pages/19" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://xuanthanhphat.vn/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://xuanthanhphat.vn/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.8.1" />
+<link rel='shortlink' href='https://xuanthanhphat.vn/?p=19' />
+<link rel="alternate" type="application/json+oembed" href="https://xuanthanhphat.vn/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fxuanthanhphat.vn%2Fdich-vu%2Fha-tang-mang%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://xuanthanhphat.vn/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fxuanthanhphat.vn%2Fdich-vu%2Fha-tang-mang%2F&#038;format=xml" />
+<style>.recentcomments a{display:inline !important;padding:0 !important;margin:0 !important;}</style><meta name="generator" content="Powered by Slider Revolution 6.4.3 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface." />
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript">function setREVStartSize(e){
+			//window.requestAnimationFrame(function() {				 
+				window.RSIW = window.RSIW===undefined ? window.innerWidth : window.RSIW;	
+				window.RSIH = window.RSIH===undefined ? window.innerHeight : window.RSIH;	
+				try {								
+					var pw = document.getElementById(e.c).parentNode.offsetWidth,
+						newh;
+					pw = pw===0 || isNaN(pw) ? window.RSIW : pw;
+					e.tabw = e.tabw===undefined ? 0 : parseInt(e.tabw);
+					e.thumbw = e.thumbw===undefined ? 0 : parseInt(e.thumbw);
+					e.tabh = e.tabh===undefined ? 0 : parseInt(e.tabh);
+					e.thumbh = e.thumbh===undefined ? 0 : parseInt(e.thumbh);
+					e.tabhide = e.tabhide===undefined ? 0 : parseInt(e.tabhide);
+					e.thumbhide = e.thumbhide===undefined ? 0 : parseInt(e.thumbhide);
+					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);		
+					if(e.layout==="fullscreen" || e.l==="fullscreen") 						
+						newh = Math.max(e.mh,window.RSIH);					
+					else{					
+						e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
+						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];					
+						e.gh = e.el===undefined || e.el==="" || (Array.isArray(e.el) && e.el.length==0)? e.gh : e.el;
+						e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
+						for (var i in e.rl) if (e.gh[i]===undefined || e.gh[i]===0) e.gh[i] = e.gh[i-1];
+											
+						var nl = new Array(e.rl.length),
+							ix = 0,						
+							sl;					
+						e.tabw = e.tabhide>=pw ? 0 : e.tabw;
+						e.thumbw = e.thumbhide>=pw ? 0 : e.thumbw;
+						e.tabh = e.tabhide>=pw ? 0 : e.tabh;
+						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;					
+						for (var i in e.rl) nl[i] = e.rl[i]<window.RSIW ? 0 : e.rl[i];
+						sl = nl[0];									
+						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}															
+						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);					
+						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
+					}				
+					if(window.rs_init_css===undefined) window.rs_init_css = document.head.appendChild(document.createElement("style"));					
+					document.getElementById(e.c).height = newh+"px";
+					window.rs_init_css.innerHTML += "#"+e.c+"_wrapper { height: "+newh+"px }";				
+				} catch(e){
+					console.log("Failure at Presize of Slider:" + e)
+				}					   
+			//});
+		  };</script>
+<noscript><style id="rocket-lazyload-nojs-css">.rll-youtube-player, [data-lazy-src]{display:none !important;}</style></noscript>    <!-- css -->
+    <link rel="icon" href="https://xuanthanhphat.vn/wp-content/uploads/2021/10/logo.png" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/vendor/bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/vendor/owlcarousel/assets/owl.theme.default.min.css">
+    <link data-minify="1" rel="stylesheet" type="text/css" href="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/vendor/fontawesome-free-5.15.3-web/css/all.min.css?ver=1633937880">
+    <link rel="stylesheet" type="text/css" href="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/vendor/owlcarousel/assets/owl.carousel.min.css">
+    <!-- custom css -->
+    <link data-minify="1" rel="stylesheet" href="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/css/icomoon.min.css?ver=1633937880">
+    <link data-minify="1" rel="stylesheet" href="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/css/animate.css?ver=1633937880">
+    <link data-minify="1" rel="stylesheet" href="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/css/main.css?ver=1633937880">
+    <link data-minify="1" rel="stylesheet" href="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/css/responsive.css?ver=1633937880">
+</head>
+
+<body>
+    <!-- Top header -->
+    <header>
+        <div class="container">
+            <div class="nav-top">
+                <div class="nav-contact">
+                    <p><span><i class="icomoon icomoon-icon-phone"></i> Liên hệ: </span><span><a href="tel:0988.176.899">0988.176.899</a></span></p>
+                    <p><span><i class="icomoon icomoon-icon-envelope"></i> Email: </span><span><a href="mailto:xuanthanhphatvn@gmail.vn" style="color:#666; padding-left: 1em;">xuanthanhphatvn@gmail.vn</a></span></p>
+                </div>
+                <div class="nav-language">
+                    <div class="nav-language-child">
+                        <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/vi.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/vi.png" alt=""></noscript></a>
+                    </div>
+                    <div class="nav-language-child">
+                        <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/en.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/en.png" alt=""></noscript></a>
+                    </div>
+                    <div class="nav-language-child">
+                        <a href="#"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/jp.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/jp.png" alt=""></noscript></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+	
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="https://xuanthanhphat.vn"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="https://xuanthanhphat.vn/wp-content/uploads/2021/10/logo.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/uploads/2021/10/logo.png"></noscript></a>
+            <button class="navbar-toggler" type="button" onclick="openNav()">
+                <i class="icomoon icomoon-icon-menu2"></i>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end order-2 order-lg-1">
+				<ul id="header-main" class="navbar-nav navbar-nav-pc"><li id="menu-item-11" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-11"><a href="http://xuanthanhphat.vn/">Trang chủ</a></li>
+<li id="menu-item-31" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><a href="https://xuanthanhphat.vn/ve-chung-toi/">Về chúng tôi</a></li>
+<li id="menu-item-246" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-246"><a href="https://xuanthanhphat.vn/dich-vu/app-mobile/">Dịch vụ</a>
+<ul class="sub-menu">
+	<li id="menu-item-235" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-235"><a href="https://xuanthanhphat.vn/dich-vu/san-xuat-phan-mem-thong-minh/">Sản xuất phần mềm thông minh</a></li>
+	<li id="menu-item-236" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-236"><a href="https://xuanthanhphat.vn/dich-vu/giao-duc/">Giáo dục</a></li>
+	<li id="menu-item-360" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-360"><a href="https://xuanthanhphat.vn/dich-vu/y-te/">Y tế</a></li>
+	<li id="menu-item-547" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-547"><a href="https://xuanthanhphat.vn/dich-vu/his-hospital-xtp/">His hospital xtp</a></li>
+	<li id="menu-item-546" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-546"><a href="https://xuanthanhphat.vn/dich-vu/lis-hospital-xtp/">Lis hospital xtp</a></li>
+	<li id="menu-item-30" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30"><a href="https://xuanthanhphat.vn/dich-vu/app-mobile/">App Mobile</a></li>
+	<li id="menu-item-28" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-19 current_page_item menu-item-28"><a href="https://xuanthanhphat.vn/dich-vu/ha-tang-mang/" aria-current="page">Hạ tầng mạng</a></li>
+	<li id="menu-item-245" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-245"><a href="https://xuanthanhphat.vn/dich-vu/an-ninh-mang/">An ninh mạng</a></li>
+</ul>
+</li>
+<li id="menu-item-362" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-362"><a href="#">Thực tập sinh IT</a>
+<ul class="sub-menu">
+	<li id="menu-item-415" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-415"><a href="https://www.youtube.com/channel/UCvPKAqb3WJvtw2GZklpgCSw/videos">Training IT</a></li>
+	<li id="menu-item-416" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-416"><a href="https://www.facebook.com/TechnologyInnovationHub/?ref=pages_you_manage">Fanpage XTP</a></li>
+	<li id="menu-item-417" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-417"><a href="https://www.facebook.com/groups/1127125274754128">Group Facebook XTP</a></li>
+</ul>
+</li>
+<li id="menu-item-26" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="https://xuanthanhphat.vn/lien-he/">Liên hệ</a></li>
+</ul>            </div>
+            <!-- <div class="navbar-search  order-1 order-lg-2">
+                <a href="#"><i class="icomoon icomoon-icon-search"></i></a>
+            </div> -->
+        </div>
+        <div id="myCanvasNav" class="overlay3" onclick="closeOffcanvas()"></div>
+        <div class="sidenav" id="mySidenav">
+            <div class="sidenav-title">
+                <h4>Menu</h4>
+                <i class="icomoon icomoon-icon-menu2" onclick="closeOffcanvas();"></i>
+            </div>
+            <ul id="header-main" class="navbar-nav navbar-nav-mobile"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-11"><a href="http://xuanthanhphat.vn/">Trang chủ</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-31"><a href="https://xuanthanhphat.vn/ve-chung-toi/">Về chúng tôi</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-ancestor current-menu-parent current_page_parent current_page_ancestor menu-item-has-children menu-item-246"><a href="https://xuanthanhphat.vn/dich-vu/app-mobile/">Dịch vụ</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-235"><a href="https://xuanthanhphat.vn/dich-vu/san-xuat-phan-mem-thong-minh/">Sản xuất phần mềm thông minh</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-236"><a href="https://xuanthanhphat.vn/dich-vu/giao-duc/">Giáo dục</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-360"><a href="https://xuanthanhphat.vn/dich-vu/y-te/">Y tế</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-547"><a href="https://xuanthanhphat.vn/dich-vu/his-hospital-xtp/">His hospital xtp</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-546"><a href="https://xuanthanhphat.vn/dich-vu/lis-hospital-xtp/">Lis hospital xtp</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30"><a href="https://xuanthanhphat.vn/dich-vu/app-mobile/">App Mobile</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-19 current_page_item menu-item-28"><a href="https://xuanthanhphat.vn/dich-vu/ha-tang-mang/" aria-current="page">Hạ tầng mạng</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-245"><a href="https://xuanthanhphat.vn/dich-vu/an-ninh-mang/">An ninh mạng</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-362"><a href="#">Thực tập sinh IT</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-415"><a href="https://www.youtube.com/channel/UCvPKAqb3WJvtw2GZklpgCSw/videos">Training IT</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-416"><a href="https://www.facebook.com/TechnologyInnovationHub/?ref=pages_you_manage">Fanpage XTP</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-417"><a href="https://www.facebook.com/groups/1127125274754128">Group Facebook XTP</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="https://xuanthanhphat.vn/lien-he/">Liên hệ</a></li>
+</ul>        </div>
+    </nav>
+    <!-- Navbar -->
+    <!-- Slide -->
+<main>
+
+    <div id="service_page">
+
+        <!-- banner liên hệ  -->
+
+        <section id="contact_banner">
+
+            <div class="container">
+
+                <div class="contact_banner_title">
+
+                    <h2>Hạ tầng mạng</h2>
+
+                    <hr>
+
+                    <p></p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        
+
+        <!-- service tính năng -->
+
+        <section id="service_feature">
+
+            <div class="container">
+
+                <div class="row">			
+
+                    <div class="col-md-12  col-lg-12">
+
+                        <div class="service_feature_img">
+
+                            <img src="" alt="">
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 col-lg-7">
+
+                        <div class="service_feature_box">
+
+                            
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- service block -->
+
+        
+        
+
+
+
+    </div>
+
+</main>
+
+
+
+	
+
+
+
+ <!-- footer -->
+ <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+                    <div class="footer-box-logo">
+                        <a class="footer-logo" href="https://xuanthanhphat.vn"><img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" data-lazy-src="https://xuanthanhphat.vn/wp-content/uploads/2021/10/logo.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/uploads/2021/10/logo.png"></noscript></a>
+                        <div class="footer-address">
+                            <div class="media">
+                              <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="hotline" class="media-img" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/hotline.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/hotline.png" alt="hotline" class="media-img"></noscript>
+                              <div class="media-body align-self-center">
+                                <p>0988.176.899 / 0903.443.574</p>
+                              </div>
+                            </div>
+                            <div class="media">
+                              <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="Thông tin email" class="media-img" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/email.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/email.png" alt="Thông tin email" class="media-img"></noscript>
+                              <div class="media-body align-self-center">
+                                <p>xuanthanhphatvn@gmail.vn</p>
+                              </div>
+                            </div>
+                            <div class="media">
+                              <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="website liên kết" class="media-img" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/website.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/website.png" alt="website liên kết" class="media-img"></noscript>
+                              <div class="media-body align-self-center">
+                                <p><p><a href="http://xuanthanhphat.vn">xuanthanhphat.vn</a><br />
+<a href="http://pharmacy.vn">pharmacy.vn</a><br />
+<a href="https://bachkhoahn.vn">bachkhoahn.vn</a></p>
+</p>
+                              </div>
+                            </div>
+                           <!--  <div class="media">
+                              <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="youtube xuân thành phát" class="media-img" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/youtube.png"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/youtube.png" alt="youtube xuân thành phát" class="media-img"></noscript>
+                              <div class="media-body align-self-center">
+                                <p>https://www.youtube.com/watch?v=xtpFb6v5o</p>
+                              </div>
+                            </div> -->
+                            <div class="media">
+                              <img src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%200%200'%3E%3C/svg%3E" alt="địa chỉ xuân thành phát" class="media-img" data-lazy-src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/address.jpg"><noscript><img src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/imgs/address.jpg" alt="địa chỉ xuân thành phát" class="media-img"></noscript>
+                              <div class="media-body align-self-center">
+                                <p><p>VPHN: Tòa nhà N09b2, khu đô thị mới Dịch Vọng, quận Cầu Giấy, TP Hà Nội<br />
+VPHCM: Tòa nhà Terra Royal, Số 280 Nam Kỳ Khởi Nghĩa, Phường Võ Thị Sáu, Quận 3, TP.HCM</p>
+</p>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="footer-title">
+                        <h4>Xuanthanhphat info</h4>
+                        <hr>
+                    </div>
+                    <div class="footer-box">
+                        <ul id="footer-main" class="menu"><li id="menu-item-116" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-116"><a href="https://xuanthanhphat.vn/ve-chung-toi/">Về chúng tôi</a></li>
+<li id="menu-item-115" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-115"><a href="https://xuanthanhphat.vn/lien-he/">Liên hệ</a></li>
+</ul>                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="footer-title">
+                        <h4>Dịch vụ</h4>
+                        <hr>
+                    </div>
+                    <div class="footer-box">
+                        <ul id="footer-sevice" class="menu"><li id="menu-item-237" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-237"><a href="https://xuanthanhphat.vn/dich-vu/san-xuat-phan-mem-thong-minh/">Sản xuất phần mềm thông minh</a></li>
+<li id="menu-item-238" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-238"><a href="https://xuanthanhphat.vn/dich-vu/giao-duc/">Giáo dục</a></li>
+<li id="menu-item-361" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-361"><a href="https://xuanthanhphat.vn/dich-vu/y-te/">Y tế</a></li>
+<li id="menu-item-119" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-119"><a href="https://xuanthanhphat.vn/dich-vu/app-mobile/">App Mobile</a></li>
+<li id="menu-item-549" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-549"><a href="https://xuanthanhphat.vn/dich-vu/his-hospital-xtp/">His hospital xtp</a></li>
+<li id="menu-item-548" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-548"><a href="https://xuanthanhphat.vn/dich-vu/lis-hospital-xtp/">Lis hospital xtp</a></li>
+<li id="menu-item-117" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-19 current_page_item menu-item-117"><a href="https://xuanthanhphat.vn/dich-vu/ha-tang-mang/" aria-current="page">Hạ tầng mạng</a></li>
+<li id="menu-item-244" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-244"><a href="https://xuanthanhphat.vn/dich-vu/an-ninh-mang/">An ninh mạng</a></li>
+</ul>                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="copyright">
+        <div class="container">
+            <div class="copyright_box">
+                © Copyright - <a href="https://xuanthanhphat.vn" >Xuanthanhphat.vn</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- scroll top -->
+    <!-- <div class="gototop js-top">
+        <a href="#" class="js-gotop" title="Lên đầu trang">TOP</a>
+    </div> -->
+
+    <!-- Messenger Plugin chat Code -->
+    <div id="fb-root"></div>
+
+    <!-- Your Plugin chat code -->
+    <div id="fb-customer-chat" class="fb-customerchat">
+    </div>
+
+    <script type="rocketlazyloadscript">
+      var chatbox = document.getElementById('fb-customer-chat');
+      chatbox.setAttribute("page_id", "109300550929217");
+      chatbox.setAttribute("attribution", "biz_inbox");
+
+      window.fbAsyncInit = function() {
+        FB.init({
+          xfbml            : true,
+          version          : 'v11.0'
+        });
+      };
+
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    </script>
+    
+    <!-- js -->
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/js/jquery.min.js"></script>
+    <script type="rocketlazyloadscript" src='https://xuanthanhphat.vn/wp-includes/js/dist/vendor/regenerator-runtime.min.js?ver=0.13.7' id='regenerator-runtime-js'></script>
+<script type="rocketlazyloadscript" src='https://xuanthanhphat.vn/wp-includes/js/dist/vendor/wp-polyfill.min.js?ver=3.15.0' id='wp-polyfill-js'></script>
+<script id='contact-form-7-js-extra'>
+var wpcf7 = {"api":{"root":"https:\/\/xuanthanhphat.vn\/wp-json\/","namespace":"contact-form-7\/v1"},"cached":"1"};
+</script>
+<script type="rocketlazyloadscript" data-minify="1" src='https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/plugins/contact-form-7/includes/js/index.js?ver=1633937880' id='contact-form-7-js'></script>
+<script type="rocketlazyloadscript" id='rocket-browser-checker-js-after'>
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+</script>
+<script id='rocket-preload-links-js-extra'>
+var RocketPreloadLinksConfig = {"excludeUris":"\/(.+\/)?feed\/?.+\/?|\/(?:.+\/)?embed\/|\/(index\\.php\/)?wp\\-json(\/.*|$)|\/wp-admin\/|\/logout\/|\/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https:\/\/xuanthanhphat.vn","onHoverDelay":"100","rateThrottle":"3"};
+</script>
+<script type="rocketlazyloadscript" id='rocket-preload-links-js-after'>
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+</script>
+<script type="rocketlazyloadscript" data-minify="1" src='https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/js/navigation.js?ver=1633937880' id='xuanthanhphat-navigation-js'></script>
+<script src='https://xuanthanhphat.vn/wp-includes/js/wp-embed.min.js?ver=5.8.1' id='wp-embed-js'></script>
+<script>window.lazyLoadOptions={elements_selector:"img[data-lazy-src],.rocket-lazyload,iframe[data-lazy-src]",data_src:"lazy-src",data_srcset:"lazy-srcset",data_sizes:"lazy-sizes",class_loading:"lazyloading",class_loaded:"lazyloaded",threshold:300,callback_loaded:function(element){if(element.tagName==="IFRAME"&&element.dataset.rocketLazyload=="fitvidscompatible"){if(element.classList.contains("lazyloaded")){if(typeof window.jQuery!="undefined"){if(jQuery.fn.fitVids){jQuery(element).parent().fitVids()}}}}}};window.addEventListener('LazyLoad::Initialized',function(e){var lazyLoadInstance=e.detail.instance;if(window.MutationObserver){var observer=new MutationObserver(function(mutations){var image_count=0;var iframe_count=0;var rocketlazy_count=0;mutations.forEach(function(mutation){for(i=0;i<mutation.addedNodes.length;i++){if(typeof mutation.addedNodes[i].getElementsByTagName!=='function'){continue}
+if(typeof mutation.addedNodes[i].getElementsByClassName!=='function'){continue}
+images=mutation.addedNodes[i].getElementsByTagName('img');is_image=mutation.addedNodes[i].tagName=="IMG";iframes=mutation.addedNodes[i].getElementsByTagName('iframe');is_iframe=mutation.addedNodes[i].tagName=="IFRAME";rocket_lazy=mutation.addedNodes[i].getElementsByClassName('rocket-lazyload');image_count+=images.length;iframe_count+=iframes.length;rocketlazy_count+=rocket_lazy.length;if(is_image){image_count+=1}
+if(is_iframe){iframe_count+=1}}});if(image_count>0||iframe_count>0||rocketlazy_count>0){lazyLoadInstance.update()}});var b=document.getElementsByTagName("body")[0];var config={childList:!0,subtree:!0};observer.observe(b,config)}},!1)</script><script data-no-minify="1" async src="https://xuanthanhphat.vn/wp-content/plugins/wp-rocket/assets/js/lazyload/16.1/lazyload.min.js"></script>    <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/vendor/bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/vendor/owlcarousel/owl.carousel.min.js"></script>
+    <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/js/jquery.easing.1.3.js?ver=1633937880"></script>
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript" src="https://xuanthanhphat.vn/wp-content/themes/xuanthanhphat/assets/js/wow.min.js"></script>
+    <script type="rocketlazyloadscript">
+     new WOW().init();
+    </script>
+    <script type="rocketlazyloadscript">
+        $(document).on('click', 'a[href^="#"]', function(event) {
+            event.preventDefault();
+            $('html, body').animate({
+                scrollTop: $($.attr(this, 'href')).offset().top
+            }, 1000);
+        });
+        $(document).ready(function() {
+            var goToTop = function() {
+                $('.js-gotop').on('click', function(event) {
+                    event.preventDefault();
+                    $('html, body').animate({
+                        scrollTop: $('html').offset().top
+                    }, 500, 'easeInOutExpo');
+                    return false;
+                });
+
+                $(window).scroll(function() {
+                    var $win = $(window);
+                    if ($win.scrollTop() > 200) {
+                        $('.js-top').addClass('active');
+                    } else {
+                        $('.js-top').removeClass('active');
+                    }
+                });
+            };
+            goToTop();
+        });
+        </script>
+    <script type="rocketlazyloadscript" data-rocket-type="text/javascript">
+    $(document).ready(function() {
+        $('.owl-banner').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: true,
+            autoplay:true,
+            autoplayTimeout:3000,
+            autoplayHoverPause:true,
+            navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+            items: 1,
+        });
+
+        $('.owl-partner').owlCarousel({
+            loop: true,
+            margin: 24,
+            nav: true,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 1500,
+            navText: ['<svg class="icon icon-chevron-left"><use xlink:href="#icon-chevron-left"><symbol id="icon-chevron-left" viewBox="0 0 24 24"><path d="M15.707 17.293l-5.293-5.293 5.293-5.293c0.391-0.391 0.391-1.024 0-1.414s-1.024-0.391-1.414 0l-6 6c-0.391 0.391-0.391 1.024 0 1.414l6 6c0.391 0.391 1.024 0.391 1.414 0s0.391-1.024 0-1.414z"></path></symbol></use></svg>', '<svg class="icon icon-chevron-right"><use xlink:href="#icon-chevron-right"><symbol id="icon-chevron-right" viewBox="0 0 24 24"><path d="M9.707 18.707l6-6c0.391-0.391 0.391-1.024 0-1.414l-6-6c-0.391-0.391-1.024-0.391-1.414 0s-0.391 1.024 0 1.414l5.293 5.293-5.293 5.293c-0.391 0.391-0.391 1.024 0 1.414s1.024 0.391 1.414 0z"></path></symbol></use></svg>'],
+            responsive: {
+                0: {
+                    items: 1
+                },
+                370: {
+                    items: 2
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 3
+                }
+            }
+        });
+    });
+    </script>
+    <!-- js custom -->
+    <script type="rocketlazyloadscript" data-minify="1" data-rocket-type="text/javascript" src="https://xuanthanhphat.vn/wp-content/cache/min/1/wp-content/themes/xuanthanhphat/assets/js/main.js?ver=1633937880"></script>
+	
+</body>
+
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1634360495 -->
